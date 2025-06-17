@@ -1,0 +1,645 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>GigConnect - Connecting Skilled Workers & Customers</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+<style>
+  /* Base reset and font */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: #000000;
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  a {
+    color: #e0e0e0;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  a:hover, a:focus {
+    color: #bbbbbb;
+    outline: none;
+  }
+
+  /* Header */
+  header {
+    position: sticky;
+    top: 0;
+    background: #111111;
+    box-shadow: 0 2px 6px rgba(255 255 255 / 0.1);
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+    height: 64px;
+  }
+  .logo {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #eeeeee;
+    cursor: pointer;
+    letter-spacing: 1.5px;
+  }
+  nav.nav-links {
+    display: flex;
+    gap: 24px;
+  }
+  nav.nav-links a {
+    font-weight: 600;
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #e0e0e0;
+  }
+  nav.nav-links a .material-icons {
+    font-size: 20px;
+    color: #e0e0e0;
+  }
+
+  /* Main container */
+  main {
+    flex: 1 1 auto;
+    max-width: 1200px;
+    margin: 32px auto;
+    padding: 0 20px;
+    width: 100%;
+  }
+
+  /* Search Hero */
+  .hero {
+    padding: 32px 24px;
+    background: #222222;
+    border-radius: 16px;
+    color: #ffffff;
+    box-shadow: 0 8px 20px rgba(255 255 255 / 0.1);
+  }
+  .hero h1 {
+    font-weight: 800;
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: 16px;
+  }
+  .hero p {
+    font-size: 1.1rem;
+    margin-bottom: 24px;
+  }
+  .search-bar {
+    display: flex;
+    gap: 0;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .search-bar input[type="search"] {
+    flex: 1;
+    font-size: 1.125rem;
+    padding: 16px 20px;
+    border: none;
+    border-radius: 9999px 0 0 9999px;
+    outline-offset: 4px;
+    background: #111111;
+    color: #ffffff;
+  }
+  .search-bar input[type="search"]::placeholder {
+    color: #888888;
+  }
+  .search-bar input[type="search"]:focus {
+    outline: 3px solid #bbbbbb;
+  }
+  .search-bar button {
+    background: #e0e0e0;
+    border: none;
+    border-radius: 0 9999px 9999px 0;
+    padding: 0 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+  }
+  .search-bar button:hover, .search-bar button:focus {
+    background: #bbbbbb;
+    outline: none;
+  }
+  .search-bar button .material-icons {
+    font-size: 28px;
+    color: #222222;
+  }
+
+  /* Layout grid */
+  .content {
+    display: flex;
+    gap: 32px;
+    margin-top: 40px;
+  }
+
+  /* Filters Sidebar */
+  aside.filters {
+    width: 280px;
+    background: #111111;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 6px 18px rgba(255 255 255 / 0.1);
+    height: fit-content;
+    flex-shrink: 0;
+    position: sticky;
+    top: 96px;
+    align-self: flex-start;
+  }
+  aside.filters h2 {
+    font-weight: 700;
+    font-size: 1.4rem;
+    margin-bottom: 24px;
+    border-bottom: 2px solid #888888;
+    padding-bottom: 8px;
+    color: #dddddd;
+  }
+  .filter-group {
+    margin-bottom: 24px;
+  }
+  .filter-label {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 12px;
+    display: block;
+    color: #cccccc;
+  }
+  .filter-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .filter-list li {
+    margin-bottom: 8px;
+  }
+  .filter-checkbox {
+    cursor: pointer;
+    margin-right: 8px;
+    accent-color: #e0e0e0;
+  }
+  .filter-list label {
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: #aaaaaa;
+    user-select: none;
+  }
+  .filter-list label:hover {
+    color: #eeeeee;
+  }
+
+  /* Services grid */
+  section.listings {
+    flex: 1;
+  }
+  .list-header {
+    font-weight: 700;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #dddddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .list-header span.count {
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: #bbbbbb;
+  }
+
+  /* Cards */
+  .worker-card {
+    background: #222222;
+    border-radius: 16px;
+    box-shadow: 0 6px 16px rgba(255 255 255 / 0.05);
+    display: flex;
+    gap: 16px;
+    padding: 20px;
+    transition: box-shadow 0.3s ease;
+  }
+  .worker-card:focus-within, .worker-card:hover {
+    box-shadow: 0 12px 32px rgba(255 255 255 / 0.15);
+  }
+  .worker-image {
+    flex-shrink: 0;
+    width: 120px;
+    height: 120px;
+    border-radius: 12px;
+    object-fit: cover;
+  }
+  .worker-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .worker-name {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: #ffffff;
+    margin-bottom: 6px;
+  }
+  .worker-services {
+    font-size: 1rem;
+    color: #cccccc;
+    margin-bottom: 10px;
+  }
+  .worker-rating {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    color: #fbbf24; /* Amber-400 */
+    margin-bottom: 12px;
+  }
+  .worker-rating .material-icons {
+    font-size: 20px;
+    color: #fbbf24;
+  }
+  .worker-price {
+    font-weight: 600;
+    font-size: 1rem;
+    color: #e0e0e0;
+    margin-bottom: 14px;
+  }
+  .worker-actions {
+    margin-top: auto;
+  }
+  .btn-contact {
+    background: #eeeeee;
+    color: #222222;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 22px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: fit-content;
+  }
+  .btn-contact:hover, .btn-contact:focus {
+    background: #cccccc;
+    outline: none;
+  }
+  .btn-contact .material-icons {
+    font-size: 20px;
+  }
+
+  /* Responsive */
+  @media (max-width: 991px) {
+    .content {
+      flex-direction: column;
+    }
+    aside.filters {
+      width: 100%;
+      position: static;
+      margin-bottom: 32px;
+    }
+    section.listings {
+      width: 100%;
+    }
+    .worker-card {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .worker-image {
+      width: 160px;
+      height: 160px;
+      margin-bottom: 16px;
+    }
+    .worker-info {
+      align-items: center;
+    }
+    .worker-actions {
+      margin-top: 16px;
+    }
+  }
+  @media (max-width: 480px) {
+    header {
+      padding: 0 16px;
+    }
+    nav.nav-links {
+      gap: 16px;
+      font-size: 0.9rem;
+    }
+    .search-bar {
+      max-width: 100%;
+    }
+    .search-bar input[type="search"] {
+      font-size: 1rem;
+      padding: 14px 16px;
+    }
+    .search-bar button {
+      padding: 0 16px;
+    }
+  }
+</style>
+</head>
+<body>
+<header role="banner" aria-label="GigConnect main navigation">
+  <div class="logo" tabindex="0">GigConnect</div>
+  <nav class="nav-links" role="navigation" aria-label="Primary navigation">
+    <a href="#services" tabindex="0"><span class="material-icons" aria-hidden="true">stars</span> Services</a>
+    <a href="#workers" tabindex="0"><span class="material-icons" aria-hidden="true">people</span> Workers</a>
+    <a href="#contact" tabindex="0"><span class="material-icons" aria-hidden="true">mail</span> Contact</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" aria-label="Search services section">
+    <h1>Find Trusted Non-Technical Workers Near You</h1>
+    <p>Skilled workers at your fingertips for home services, repairs, tutoring, and more.</p>
+    <form id="search-form" class="search-bar" role="search" aria-label="Search for workers or services">
+      <input type="search" id="search-input" name="search" placeholder="Search for services, workers, jobs..." aria-label="Search services or workers" autocomplete="off" />
+      <button type="submit" aria-label="Search"><span class="material-icons">search</span></button>
+    </form>
+  </section>
+
+  <div class="content">
+
+    <aside class="filters" aria-label="Filter workers and services">
+      <h2>Filters</h2>
+
+      <div class="filter-group">
+        <label class="filter-label" for="category-filter">Category</label>
+        <ul class="filter-list" role="list">
+          <li><label><input type="checkbox" class="filter-checkbox" value="Plumbing" id="filter-plumbing" /> Plumbing</label></li>
+          <li><label><input type="checkbox" class="filter-checkbox" value="Electrician" id="filter-electrician" /> Electrician</label></li>
+          <li><label><input type="checkbox" class="filter-checkbox" value="Cleaning" id="filter-cleaning" /> Cleaning</label></li>
+          <li><label><input type="checkbox" class="filter-checkbox" value="Tutoring" id="filter-tutoring" /> Tutoring</label></li>
+          <li><label><input type="checkbox" class="filter-checkbox" value="Carpentry" id="filter-carpentry" /> Carpentry</label></li>
+        </ul>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label">Experience</label>
+        <ul class="filter-list" role="list">
+          <li><label><input type="checkbox" class="filter-checkbox" value="0-2" /> 0-2 years </label></li>
+          <li><label><input type="checkbox" class="filter-checkbox" value="3-5" /> 3-5 years </label></li>
+          <li><label><input type="checkbox" class="filter-checkbox" value="5+" /> 5+ years </label></li>
+        </ul>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label">Rating</label>
+        <ul class="filter-list" role="list">
+          <li><label><input type="checkbox" class="filter-checkbox" value="4+" /> 4 stars & up</label></li>
+          <li><label><input type="checkbox" class="filter-checkbox" value="3+" /> 3 stars & up</label></li>
+          <li><label><input type="checkbox" class="filter-checkbox" value="2+" /> 2 stars & up</label></li>
+        </ul>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label" for="price-range">Max Price per Hour</label><br />
+        <input type="range" id="price-range" min="10" max="100" value="100" aria-valuemin="10" aria-valuemax="100" aria-valuenow="100" aria-label="Filter maximum price per hour" />
+        <output id="price-value" for="price-range">100</output> $
+      </div>
+    </aside>
+
+    <section class="listings" aria-label="Workers listing">
+      <div class="list-header" role="heading" aria-level="2">
+        <span>Available Workers</span>
+        <span class="count" aria-live="polite" id="workers-count">0 workers found</span>
+      </div>
+
+      <div id="workers-list" role="list" aria-live="polite" aria-relevant="additions removals">
+        <!-- Worker cards populated by JS -->
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer aria-label="GigConnect footer social and legal info" style="text-align:center; padding:24px; font-size:0.9rem; color:#888;">
+  &copy; 2024 GigConnect. Developed by Shivang Singh. &nbsp;
+  <a href="mailto:sshivang206@gmail.com" aria-label="Email developer">Contact Me</a>
+</footer>
+
+<script>
+  (() => {
+    const workers = [
+      {
+        id: 1,
+        name: "Anil Sharma",
+        category: "Plumbing",
+        experience: 4,
+        rating: 4.5,
+        hourlyRate: 30,
+        photo: "https://placehold.co/120x120/888888/ffffff?text=AS",
+        services: "Pipe Repair, Leak Detection, Faucet Installation"
+      },
+      {
+        id: 2,
+        name: "Sunita Patel",
+        category: "Cleaning",
+        experience: 6,
+        rating: 4.8,
+        hourlyRate: 25,
+        photo: "https://placehold.co/120x120/999999/000000?text=SP",
+        services: "Home Cleaning, Deep Cleaning, Carpet Cleaning"
+      },
+      {
+        id: 3,
+        name: "Rajiv Singh",
+        category: "Electrician",
+        experience: 2,
+        rating: 4.3,
+        hourlyRate: 40,
+        photo: "https://placehold.co/120x120/777777/eeeeee?text=RS",
+        services: "Wiring, Electrical Repairs, Lighting Installation"
+      },
+      {
+        id: 4,
+        name: "Neha Gupta",
+        category: "Tutoring",
+        experience: 5,
+        rating: 4.9,
+        hourlyRate: 35,
+        photo: "https://placehold.co/120x120/aaaaaa/222222?text=NG",
+        services: "Math, Science, Computer Programming"
+      },
+      {
+        id: 5,
+        name: "Ajay Kumar",
+        category: "Carpentry",
+        experience: 3,
+        rating: 4.1,
+        hourlyRate: 28,
+        photo: "https://placehold.co/120x120/bbbbbb/333333?text=AK",
+        services: "Furniture Making, Repairs, Cabinet Installation"
+      },
+      {
+        id: 6,
+        name: "Meena Das",
+        category: "Cleaning",
+        experience: 1,
+        rating: 3.9,
+        hourlyRate: 20,
+        photo: "https://placehold.co/120x120/cccccc/444444?text=MD",
+        services: "Home Cleaning, Kitchen & Bathroom Cleaning"
+      }
+    ];
+
+    const searchInput = document.getElementById('search-input');
+    const workersList = document.getElementById('workers-list');
+    const workersCount = document.getElementById('workers-count');
+    const filtersForm = document.querySelector('aside.filters');
+    const priceRange = document.getElementById('price-range');
+    const priceValue = document.getElementById('price-value');
+
+    priceValue.textContent = priceRange.value;
+    priceRange.addEventListener('input', () => {
+      priceValue.textContent = priceRange.value;
+      filterAndRender();
+    });
+
+    filtersForm.addEventListener('change', (e) => {
+      if (e.target.classList.contains('filter-checkbox')) {
+        filterAndRender();
+      }
+    });
+
+    document.getElementById('search-form').addEventListener('submit', e => {
+      e.preventDefault();
+      filterAndRender();
+    });
+
+    searchInput.addEventListener('input', () => {
+      filterAndRender();
+    });
+
+    function filterAndRender() {
+      const searchTerm = searchInput.value.toLowerCase().trim();
+      const checkedCategories = [...document.querySelectorAll('input.filter-checkbox')].filter(cb => cb.checked).map(cb => cb.value);
+      const maxPrice = Number(priceRange.value);
+
+      const checkedExp = [...document.querySelectorAll('div.filter-group:nth-child(2) input.filter-checkbox')]
+        .filter(cb => cb.checked)
+        .map(cb => cb.value);
+
+      const checkedRatings = [...document.querySelectorAll('div.filter-group:nth-child(3) input.filter-checkbox')]
+        .filter(cb => cb.checked)
+        .map(cb => cb.value);
+
+      let filtered = workers.filter(worker => {
+        const textMatch = worker.name.toLowerCase().includes(searchTerm) ||
+          worker.services.toLowerCase().includes(searchTerm) ||
+          worker.category.toLowerCase().includes(searchTerm);
+
+        const categoryMatch = checkedCategories.length === 0 || checkedCategories.includes(worker.category);
+
+        const priceMatch = worker.hourlyRate <= maxPrice;
+
+        let expMatch = false;
+        if (checkedExp.length === 0) {
+          expMatch = true;
+        } else {
+          for (const exp of checkedExp) {
+            if (exp === "5+" && worker.experience >= 5) {
+              expMatch = true; break;
+            }
+            if (exp === "3-5" && worker.experience >= 3 && worker.experience <= 5) {
+              expMatch = true; break;
+            }
+            if (exp === "0-2" && worker.experience <= 2) {
+              expMatch = true; break;
+            }
+          }
+        }
+
+        let ratingMatch = false;
+        if (checkedRatings.length === 0) ratingMatch = true;
+        else {
+          for (const r of checkedRatings) {
+            const minR = parseFloat(r);
+            if (worker.rating >= minR) {
+              ratingMatch = true; break;
+            }
+          }
+        }
+
+        return textMatch && categoryMatch && priceMatch && expMatch && ratingMatch;
+      });
+
+      renderWorkerCards(filtered);
+    }
+
+    function renderWorkerCards(workersArray) {
+      workersList.innerHTML = '';
+      if (workersArray.length === 0) {
+        workersList.innerHTML = '<p style="font-style:italic; color:#888;">No workers found matching your criteria.</p>';
+      } else {
+        for (const w of workersArray) {
+          const card = document.createElement('article');
+          card.className = 'worker-card';
+          card.setAttribute('tabindex', '0');
+          card.setAttribute('role', 'listitem');
+          card.setAttribute('aria-label', `${w.name}, ${w.category} worker, rating ${w.rating.toFixed(1)}`);
+
+          card.innerHTML = `
+            <img alt="Photo of ${w.name}, ${w.category} worker" class="worker-image" src="${w.photo}" loading="lazy" 
+              onerror="this.onerror=null;this.src='https://placehold.co/120x120/555555/ffffff?text=No+Image';" />
+            <div class="worker-info">
+              <h3 class="worker-name">${w.name}</h3>
+              <p class="worker-services">${w.services}</p>
+              <div class="worker-rating" aria-label="Rating: ${w.rating.toFixed(1)} stars">
+                ${renderStars(w.rating)}
+                <span>(${w.rating.toFixed(1)})</span>
+              </div>
+              <div class="worker-price" aria-label="Hourly rate $${w.hourlyRate}">From $${w.hourlyRate}/hr</div>
+              <div class="worker-actions">
+                <button class="btn-contact" aria-label="Contact ${w.name} for work">
+                  <span class="material-icons">chat</span> Contact
+                </button>
+              </div>
+            </div>
+          `;
+          workersList.appendChild(card);
+        }
+      }
+
+      workersCount.textContent = workersArray.length + (workersArray.length === 1 ? " worker found" : " workers found");
+    }
+
+    function renderStars(rating) {
+      const maxStars = 5;
+      const fullStars = Math.floor(rating);
+      const halfStar = rating - fullStars >= 0.5;
+      let starsHTML = '';
+
+      for (let i = 0; i < fullStars; i++) {
+        starsHTML += `<span class="material-icons" aria-hidden="true" style="color:#f5f5f5;">star</span>`;
+      }
+      if (halfStar) {
+        starsHTML += `<span class="material-icons" aria-hidden="true" style="color:#f5f5f5;">star_half</span>`;
+      }
+      const empties = maxStars - fullStars - (halfStar ? 1 : 0);
+      for (let i = 0; i < empties; i++) {
+        starsHTML += `<span class="material-icons" aria-hidden="true" style="color:#777777;">star_border</span>`;
+      }
+      return starsHTML;
+    }
+
+    // Initial rendering of all workers
+    renderWorkerCards(workers);
+
+  })();
+</script>
+</body>
+</html>
+
